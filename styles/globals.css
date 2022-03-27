@@ -19,3 +19,7 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #f59e0b;
 }
+
+.active {
+  background-color: #d97706;
+}

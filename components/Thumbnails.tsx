@@ -22,6 +22,8 @@ interface Props {
 
 function Thumbnails({ items }: Props) {
   const [watched, setWatched] = useState<string[]>([])
+  const [filterBy, setFilterBy] = useState("all")
+  const [filteredItems, setFilteredItems] = useState<Item[]>(items)
   const { data: session } = useSession()
 
   const firebaseConfig = {
@@ -70,7 +72,6 @@ function Thumbnails({ items }: Props) {
           let myWatched = []
           snapshot.docs.forEach((doc: any) => {
             myWatched = doc.data().watched
-
             setWatched(myWatched)
           })
         })
@@ -79,6 +80,18 @@ function Thumbnails({ items }: Props) {
       console.error(error)
     }
   }, [])
+
+  useEffect(() => {
+    if (filterBy === "all") {
+      setFilteredItems(items)
+    } else if (filterBy === "watched") {
+      const watchedItems = items.filter((item) => watched.includes(item.id))
+      setFilteredItems(watchedItems)
+    } else if (filterBy === "unwatched") {
+      const unwatchedItems = items.filter((item) => !watched.includes(item.id))
+      setFilteredItems(unwatchedItems)
+    }
+  }, [filterBy])
 
   const updatesavedWatched = async (updatedArr: string[]) => {
     try {
@@ -96,17 +109,51 @@ function Thumbnails({ items }: Props) {
   }
 
   return (
-    <main className="mt-6 flex-wrap items-center justify-start gap-3 p-3 md:flex">
-      {items.map((item) => (
-        <Thumbnail
-          key={item.id}
-          item={item}
-          watched={watched}
-          setWatched={setWatched}
-          updatesavedWatched={updatesavedWatched}
-        />
-      ))}
-    </main>
+    <>
+      <div className="my-4 inline-flex">
+        <button
+          onClick={() => setFilterBy("all")}
+          className={`rounded-l-lg bg-amber-500 py-2 px-4 text-lg font-semibold text-black hover:bg-amber-600 active:bg-amber-600 ${
+            filterBy === "all" ? "active" : null
+          }`}
+        >
+          All
+        </button>
+        <button
+          onClick={() => setFilterBy("watched")}
+          className={`bg-amber-500 py-2 px-4 text-lg font-semibold text-black hover:bg-amber-600 active:bg-amber-600 ${
+            filterBy === "watched" ? "active" : null
+          }`}
+        >
+          Watched
+        </button>
+        <button
+          onClick={() => setFilterBy("unwatched")}
+          className={`rounded-r-lg bg-amber-500 py-2 px-4 text-lg font-semibold text-black hover:bg-amber-600 active:bg-amber-600 ${
+            filterBy === "unwatched" ? "active" : null
+          }`}
+        >
+          Unwatched
+        </button>
+      </div>
+      <main className="mt-6 grow flex-wrap items-center justify-start gap-3 p-3 md:flex">
+        {filteredItems.length ? (
+          filteredItems.map((item) => (
+            <Thumbnail
+              key={item.id}
+              item={item}
+              watched={watched}
+              setWatched={setWatched}
+              updatesavedWatched={updatesavedWatched}
+            />
+          ))
+        ) : (
+          <div className="flex h-full w-full grow items-center justify-center truncate text-xl">
+            No Items to display at the moment
+          </div>
+        )}
+      </main>
+    </>
   )
 }
 

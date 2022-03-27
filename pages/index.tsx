@@ -18,7 +18,7 @@ const Home: NextPage = () => {
   }, [])
 
   return (
-    <div className="min-w-screen flex min-h-screen flex-col items-center justify-center bg-slate-800 py-2 text-white">
+    <div className="min-w-screen flex min-h-screen flex-col items-center justify-center bg-slate-800 text-white">
       <Head>
         <title>Bible In A year</title>
         <link rel="icon" href="/favicon.ico" />
@@ -41,7 +41,7 @@ const Home: NextPage = () => {
           {items?.length ? (
             <Thumbnails items={items} />
           ) : (
-            <div className="flex h-full w-full grow items-center justify-center text-xl">
+            <div className="flex h-full w-full grow items-center justify-center truncate text-xl">
               No Items to display at the moment
             </div>
           )}
