@@ -11,7 +11,8 @@ function Footer() {
           <HeartIcon className="h-8 fill-rose-500 group-hover:animate-bounce" />
         </span>
         by Lenny Kioko{" "}
-        {session?.user?.email === process.env.NEXT_PUBLIC_SPECIAL_MAIL
+        {session?.user?.email &&
+        session?.user?.email === process.env.NEXT_PUBLIC_SPECIAL_MAIL
           ? "for my Sunshine 🌞"
           : null}
       </div>

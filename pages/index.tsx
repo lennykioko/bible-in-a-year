@@ -15,6 +15,8 @@ interface Props {
 const Home: NextPage<Props> = ({ items }: Props) => {
   const { data: session, status } = useSession()
 
+  console.log(items)
+
   return (
     <div className="min-w-screen flex min-h-screen flex-col items-center justify-center bg-slate-800 py-2 text-white">
       <Head>
@@ -35,7 +37,14 @@ const Home: NextPage<Props> = ({ items }: Props) => {
               Kindly sign in with Google to save and sync progress
             </div>
           )}
-          <Thumbnails items={items} />
+
+          {items?.length ? (
+            <Thumbnails items={items} />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center text-xl">
+              No Items to display at the moment
+            </div>
+          )}
         </>
       )}
       <Footer />
@@ -55,7 +64,7 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       items,
     },
-    revalidate: 7200, // revalidate after 2 hours
+    revalidate: 120, // revalidate after 2 mins
   }
 }
 
