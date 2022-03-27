@@ -1,21 +1,21 @@
 import type { NextPage, GetStaticProps } from "next"
 import Head from "next/head"
 import { useSession } from "next-auth/react"
+import { useState, useEffect } from "react"
 import Footer from "../components/Footer"
 import Header from "../components/Header"
 import Thumbnails from "../components/Thumbnails"
 import { Item } from "../typings"
 import Loader from "../components/Loader"
-import { getData } from "./api/data"
+const data = require("../utils/cleanedData.json")
 
-interface Props {
-  items: Item[]
-}
-
-const Home: NextPage<Props> = ({ items }: Props) => {
+const Home: NextPage = () => {
   const { data: session, status } = useSession()
+  const [items, setItems] = useState<Item[]>([])
 
-  console.log(items)
+  useEffect(() => {
+    if (data?.items) setItems(data?.items)
+  }, [])
 
   return (
     <div className="min-w-screen flex min-h-screen flex-col items-center justify-center bg-slate-800 py-2 text-white">
@@ -41,7 +41,7 @@ const Home: NextPage<Props> = ({ items }: Props) => {
           {items?.length ? (
             <Thumbnails items={items} />
           ) : (
-            <div className="flex h-full w-full items-center justify-center text-xl">
+            <div className="flex h-full w-full grow items-center justify-center text-xl">
               No Items to display at the moment
             </div>
           )}
@@ -50,22 +50,6 @@ const Home: NextPage<Props> = ({ items }: Props) => {
       <Footer />
     </div>
   )
-}
-
-interface Data {
-  items: Item[]
-}
-
-export const getStaticProps: GetStaticProps = async () => {
-  const data: Data = await getData()
-  const items = data?.items || []
-
-  return {
-    props: {
-      items,
-    },
-    revalidate: 120, // revalidate after 2 mins
-  }
 }
 
 export default Home
