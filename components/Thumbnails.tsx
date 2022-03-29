@@ -91,7 +91,7 @@ function Thumbnails({ items }: Props) {
       const unwatchedItems = items.filter((item) => !watched.includes(item.id))
       setFilteredItems(unwatchedItems)
     }
-  }, [filterBy])
+  }, [filterBy, watched])
 
   const updatesavedWatched = async (updatedArr: string[]) => {
     try {
@@ -110,7 +110,7 @@ function Thumbnails({ items }: Props) {
 
   return (
     <>
-      <div className="my-4 inline-flex">
+      <div className="my-4 inline-flex transform hover:-translate-y-0.5">
         <button
           onClick={() => setFilterBy("all")}
           className={`rounded-l-lg bg-amber-500 py-2 px-4 text-lg font-semibold text-black hover:bg-amber-600 active:bg-amber-600 ${
@@ -136,7 +136,7 @@ function Thumbnails({ items }: Props) {
           Unwatched
         </button>
       </div>
-      <main className="mt-6 grow flex-wrap items-center justify-start gap-3 p-3 md:flex">
+      <main className="mt-6 grow flex-wrap items-center justify-start gap-x-3 gap-y-7 p-3 md:flex">
         {filteredItems.length ? (
           filteredItems.map((item) => (
             <Thumbnail

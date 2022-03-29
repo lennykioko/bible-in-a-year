@@ -37,14 +37,14 @@ function Header() {
         {session ? (
           <button
             onClick={() => signOut()}
-            className="ml-4 rounded-lg p-2 text-lg font-medium outline outline-offset-2 outline-rose-500 hover:outline-rose-600"
+            className="ml-4 transform rounded-lg p-2 text-lg font-medium outline outline-offset-2 outline-rose-500 hover:-translate-y-0.5 hover:outline-rose-600"
           >
             Log Out
           </button>
         ) : (
           <button
             onClick={() => signIn()}
-            className="ml-4 rounded-lg p-2 text-lg font-medium outline outline-offset-2 outline-blue-500 hover:outline-blue-600"
+            className="ml-4 transform rounded-lg p-2 text-lg font-medium outline outline-offset-2 outline-blue-500 hover:-translate-y-0.5 hover:outline-blue-600"
           >
             Sign In With Google
           </button>

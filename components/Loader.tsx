@@ -2,7 +2,7 @@ import Image from "next/image"
 
 function Loader() {
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-center">
+    <div className="flex h-screen w-full flex-col items-center justify-center bg-slate-800">
       <Image
         className="object-contain group-hover:animate-bounce"
         src="/ascension_logo.png"

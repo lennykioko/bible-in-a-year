@@ -37,7 +37,7 @@ function Thumbnail({ item, watched, setWatched, updatesavedWatched }: Props) {
   }
 
   return (
-    <div className="m-1 mb-4 flex cursor-pointer flex-col justify-start rounded-lg border-2 border-solid border-amber-500 p-4 transition-all duration-100 ease-in-out hover:bg-slate-900">
+    <div className="m-1 mb-10 flex transform cursor-pointer flex-col justify-start rounded-lg border-2 border-solid border-amber-500 p-3 hover:-translate-y-0.5 hover:bg-slate-900">
       <a href={`${BASE_URL}${item.videoId}`} rel="noreferrer" target="_blank">
         <div className="h-80 w-96">
           <Image

@@ -17,6 +17,8 @@ const Home: NextPage = () => {
     if (data?.items) setItems(data?.items)
   }, [])
 
+  if (status === "loading") return <Loader />
+
   return (
     <div className="min-w-screen flex min-h-screen flex-col items-center justify-center bg-slate-800 text-white">
       <Head>
@@ -25,27 +27,20 @@ const Home: NextPage = () => {
       </Head>
 
       <Header />
-
-      {status === "loading" ? (
-        <Loader />
+      {session ? (
+        <></>
       ) : (
-        <>
-          {session ? (
-            <></>
-          ) : (
-            <div className="flex w-full items-center justify-center truncate bg-amber-500 py-4 text-lg font-bold text-white">
-              Kindly sign in with Google to save and sync progress
-            </div>
-          )}
+        <div className="flex w-full items-center justify-center truncate bg-amber-500 py-4 font-bold text-white">
+          Kindly sign in with Google to save &#38; sync progress
+        </div>
+      )}
 
-          {items?.length ? (
-            <Thumbnails items={items} />
-          ) : (
-            <div className="flex h-full w-full grow items-center justify-center truncate text-xl">
-              No Items to display at the moment
-            </div>
-          )}
-        </>
+      {items?.length ? (
+        <Thumbnails items={items} />
+      ) : (
+        <div className="flex h-full w-full grow items-center justify-center truncate text-xl">
+          No Items to display at the moment
+        </div>
       )}
       <Footer />
     </div>
