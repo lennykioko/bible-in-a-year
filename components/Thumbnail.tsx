@@ -47,6 +47,7 @@ function Thumbnail({ item, watched, setWatched, updatesavedWatched }: Props) {
                 ? `${item.thumbnailUrl}`
                 : "https://i.ytimg.com/vi/g7o7WjQc3as/sddefault.jpg" // default image src
             }
+            alt={item.title || "Video thumbnail"}
             width={640}
             height={480}
           />
