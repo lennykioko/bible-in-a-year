@@ -6,13 +6,13 @@ function Header() {
 
   return (
     <header className="flex w-full items-center justify-between bg-slate-900">
-      <div className="group cursor-pointer">
+      <div className="group relative h-[100px] w-[200px] cursor-pointer">
         <Image
           className="object-contain group-hover:animate-bounce"
           src="/ascension_logo.png"
           alt="Logo"
-          width={200}
-          height={100}
+          fill
+          sizes="200px"
         />
       </div>
       <div className="mr-4 flex cursor-pointer items-center gap-3 pr-4">
@@ -26,7 +26,7 @@ function Header() {
               height={50}
             />
           ) : (
-            <div className=" rounded-full bg-amber-400 py-3 px-4 text-xl font-semibold uppercase tracking-wider text-black hover:animate-bounce">
+            <div className=" rounded-full bg-amber-400 px-4 py-3 text-xl font-semibold uppercase tracking-wider text-black hover:animate-bounce">
               {session?.user?.email?.substring(0, 2)}
             </div>
           )
